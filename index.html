@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blacklion | Official Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --gray: #f4f4f4;
+            --accent: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: var(--primary);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            height: 50px;
+            filter: brightness() invert(0); /* Hace que el logo negro se vea blanco */
+        }
+
+        .cart-icon {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            height: 60vh;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* --- PRODUCTS --- */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background: #f9f9f9;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .product-price {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: var(--accent);
+        }
+
+        /* --- CART SIDEBAR --- */
+        #cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 350px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            z-index: 2000;
+            padding: 30px;
+        }
+
+        #cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .checkout-btn {
+            background: #25d366; /* Color WhatsApp */
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        <img src="logo.png" alt="Blacklion Logo">
+    </div>
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒 Carrito <span class="cart-count" id="cart-count">0</span>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>BLACKLION</h1>
+    <p>ESTILO URBANO. FUERZA SALVAJE.</p>
+</section>
+
+<div class="container">
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="modelo1.jpg" class="product-image" alt="Remera BL Blanco">
+            <div class="product-info">
+                <div class="product-title">Tee Core BL White</div>
+                <div class="product-price">$25.000</div>
+                <button class="add-btn" onclick="addToCart('Tee Core BL White', 25000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="modelo2.jpg" class="product-image" alt="Remera Blacklion Lineal">
+            <div class="product-info">
+                <div class="product-title">Tee Blacklion Box</div>
+                <div class="product-price">$25.000</div>
+                <button class="add-btn" onclick="addToCart('Tee Blacklion Box', 25000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="modelo3.jpg" class="product-image" alt="Remera Cursiva">
+            <div class="product-info">
+                <div class="product-title">Tee Script Essential</div>
+                <div class="product-price">$28.000</div>
+                <button class="add-btn" onclick="addToCart('Tee Script Essential', 28000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="modelo4.jpg" class="product-image" alt="Remera B Grande">
+            <div class="product-info">
+                <div class="product-title">Tee Wild B Logo</div>
+                <div class="product-price">$30.000</div>
+                <button class="add-btn" onclick="addToCart('Tee Wild B Logo', 30000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="modelo5.jpg" class="product-image" alt="Remera BL Stealth">
+            <div class="product-info">
+                <div class="product-title">Tee Stealth BL Black</div>
+                <div class="product-price">$25.000</div>
+                <button class="add-btn" onclick="addToCart('Tee Stealth BL Black', 25000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+<div class="product-card">
+            <img src="modelo6.jpg" class="product-image" alt="Combo BL">
+            <div class="product-info">
+                <div class="product-title">Combo BL</div>
+                <div class="product-price">$60.000</div>
+                <button class="add-btn" onclick="addToCart('Combo BL', 60000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="modelo7.jpg" class="product-image" alt="Hoodie Blakclion">
+            <div class="product-info">
+                <div class="product-title">Hoodie Blakclion</div>
+                <div class="product-price">$35.000</div>
+                <button class="add-btn" onclick="addToCart('Hoodie Blakclion', 35000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="modelo8.jpg" class="product-image" alt="Hoodie BL">
+            <div class="product-info">
+                <div class="product-title">Hoodie BL</div>
+                <div class="product-price">$35.000</div>
+                <button class="add-btn" onclick="addToCart('Hoodie BL', 35000)">Añadir al carrito</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="cart-sidebar">
+    <div class="cart-header">
+        <h2>TU PEDIDO</h2>
+        <button onclick="toggleCart()" style="background:none; border:none; font-size: 20px; cursor:pointer">✕</button>
+    </div>
+    <div id="cart-items">
+        </div>
+    <hr>
+    <div style="margin-top: 20px; font-weight: bold; display: flex; justify-content: space-between;">
+        <span>Total:</span>
+        <span id="cart-total">$0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">FINALIZAR POR WHATSAPP</button>
+</div>
+
+<footer>
+    <p>&copy; 2025 BLACKLION CLOTHING. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    let cart = [];
+    let total = 0;
+
+    function toggleCart() {
+        document.getElementById('cart-sidebar').classList.toggle('active');
+    }
+
+    function addToCart(name, price) {
+        cart.push({name, price});
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItemsElement = document.getElementById('cart-items');
+        const cartCountElement = document.getElementById('cart-count');
+        const cartTotalElement = document.getElementById('cart-total');
+        
+        cartItemsElement.innerHTML = '';
+        total = 0;
+
+        cart.forEach((item, index) => {
+            total += item.price;
+            cartItemsElement.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.name}</span>
+                    <span>$${item.price.toLocaleString()}</span>
+                </div>
+            `;
+        });
+
+        cartCountElement.innerText = cart.length;
+        cartTotalElement.innerText = `$${total.toLocaleString()}`;
+    }
+
+    function checkout() {
+        if(cart.length === 0) return alert("El carrito está vacío");
+        
+        let message = "Hola Blacklion! Quiero comprar:%0A";
+        cart.forEach(item => {
+            message += `- ${item.name} ($${item.price})%0A`;
+        });
+        message += `%0ATotal: $${total}`;
+        
+        // Aquí puedes poner tu número de teléfono real
+        window.open(`https://wa.me/1154718365?text=${message}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
